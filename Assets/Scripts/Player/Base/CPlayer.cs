@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CPlayer : MonoBehaviour, IPlayerDamageable
+public class CPlayer : MonoBehaviour, IPlayerDamageable, ITriggerPlayerCheckable
 {
     public float MaxHealth { get; set; }
     public float CurrentHealth { get; set; }
     public bool IsMoving { get; set; }
     public NavMeshAgent Agent { get; set; }
+
+    public bool IsInCollectRange { get; set; }
+    public bool IsInTreeCutRange { get; set; }
+    public bool IsInInteractRange { get; set; }
+
     #region State Machine Variables
 
     public CPlayerStateMachine StateMachine { get; set; }
@@ -17,6 +22,9 @@ public class CPlayer : MonoBehaviour, IPlayerDamageable
     public CPlayerAttackState AttackState { get; set; }
     public CPlayerCutTreeState CutTreeState { get; set; }
     public CPlayerCollectState CollectState { get; set; }
+
+    public CPlayerInteractState InteractState { get; set; }
+
 
     #endregion
     private void Awake()
@@ -27,6 +35,7 @@ public class CPlayer : MonoBehaviour, IPlayerDamageable
         AttackState = new CPlayerAttackState(this, StateMachine);
         CutTreeState = new CPlayerCutTreeState(this, StateMachine);
         CollectState = new CPlayerCollectState(this, StateMachine);
+        InteractState = new CPlayerInteractState(this, StateMachine);
 
     }
     private void Start()
@@ -74,10 +83,29 @@ public class CPlayer : MonoBehaviour, IPlayerDamageable
         StateMachine.CurrentPlayerState.AnimationTriggerEvent(triggerType);
     }
 
+ 
+
     public enum AnimationTriggerType
     {
         PlayerIdle,
         PlayerWalk,
+    }
+    #endregion
+
+    #region Trigger Checks
+    public void SetInCollectRangeStatus(bool isInCollectRange)
+    {
+        IsInCollectRange = isInCollectRange;
+    }
+
+    public void SetInTreeCutRangeStatus(bool isInTreeCutRange)
+    {
+        IsInTreeCutRange = isInTreeCutRange;
+    }
+
+    public void SetInInteractRangeStatus(bool isInInteractRange)
+    {
+        IsInInteractRange = isInInteractRange;
     }
     #endregion
 }
