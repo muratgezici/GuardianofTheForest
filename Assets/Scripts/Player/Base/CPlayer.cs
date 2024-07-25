@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class CPlayer : MonoBehaviour, IPlayerDamageable, ITriggerPlayerCheckable
 {
+    [SerializeField] private GameObject ProjectileAttackManager;
+    [SerializeField] private GameObject MeleeAttackManager;
+
     public float MaxHealth { get; set; }
     public float CurrentHealth { get; set; }
     public bool IsMoving { get; set; }
@@ -22,7 +25,6 @@ public class CPlayer : MonoBehaviour, IPlayerDamageable, ITriggerPlayerCheckable
     public CPlayerAttackState AttackState { get; set; }
     public CPlayerCutTreeState CutTreeState { get; set; }
     public CPlayerCollectState CollectState { get; set; }
-
     public CPlayerInteractState InteractState { get; set; }
 
 

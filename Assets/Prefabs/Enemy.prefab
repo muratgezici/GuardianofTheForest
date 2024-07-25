@@ -42,9 +42,10 @@ GameObject:
   - component: {fileID: 3592154277665107657}
   - component: {fileID: 8671731483873344631}
   - component: {fileID: 2081022017928433375}
+  - component: {fileID: 1393042987047012082}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,6 +112,29 @@ MonoBehaviour:
   BulletPrefab: {fileID: 2013567006983136941}
   RandomMovementRange: 5
   RandomMovementSpeed: 1
+--- !u!136 &1393042987047012082
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282529294188747927}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5938184
+  m_Height: 2.0748405
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5374203, z: 0}
 --- !u!1 &2395395850216854559
 GameObject:
   m_ObjectHideFlags: 0
