@@ -16,6 +16,7 @@ public class CAutoAimAttackState : CAttackState
     public override void EnterState()
     {
         base.EnterState();
+        AttackBase.ActivateWeapons();
     }
 
     public override void ExitState()
@@ -26,6 +27,23 @@ public class CAutoAimAttackState : CAttackState
     public override void FrameUpdate()
     {
         base.FrameUpdate();
+
+        /*if (!AttackBase.IsInMeleeRange)
+        {
+            AttackBase.DeactivateWeapons();
+        }
+        else
+        {
+            AttackBase.ActivateWeapons();
+        }
+        if (!AttackBase.IsInProjectileRange)
+        {
+            AttackBase.DeactivateWeapons();
+        }
+        else
+        {
+            AttackBase.ActivateWeapons();
+        }*/
 
         if (!AttackBase.IsAutoAimEnabled)
         {

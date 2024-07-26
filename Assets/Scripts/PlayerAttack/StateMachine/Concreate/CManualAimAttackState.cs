@@ -16,6 +16,7 @@ public class CManualAimAttackState : CAttackState
     public override void EnterState()
     {
         base.EnterState();
+        AttackBase.ActivateWeapons();
     }
 
     public override void ExitState()
@@ -27,7 +28,7 @@ public class CManualAimAttackState : CAttackState
     {
         base.FrameUpdate();
 
-
+        
         if (AttackBase.IsAutoAimEnabled)
         {
             AttackBase.StateMachine.ChangeState(AttackBase.AutoAimState);

@@ -7,15 +7,16 @@ using UnityEngine.AI;
 
 public class CAttackBase : MonoBehaviour, IAttackInitializeable, ITriggerAttackCheck
 {
-   public List<GameObject> Weapons {  get;  set; }
-    public float WeaponDamage { get; set; }
-    public float WeaponCooldown { get; set; }
-    public float WeaponRange { get; set; }
-    public float WeaponFireAmount { get; set; }
+   public List<GameObject> Weapons {  get;  set; } = new List<GameObject>();
+    public float WeaponDamage { get; set; } = 0;
+    public float WeaponCooldown { get; set; } = 0;
+    public float WeaponRange { get; set; } = 0;
+    public float WeaponFireAmount { get; set; } = 0;
     public bool IsInMeleeRange { get; set; }
     public bool IsInProjectileRange { get; set; }
     public bool IsAutoAimEnabled { get; set; } = true;
 
+    private bool IsWeaponsFirstTimeInitialized = false;
     #region State Machine Variables
 
     public CAttackStateMachine StateMachine { get; set; }
@@ -53,30 +54,53 @@ public class CAttackBase : MonoBehaviour, IAttackInitializeable, ITriggerAttackC
     }
     #region Weapon Actions
     public void AddWeapon(GameObject weapon)
-    {
+    { 
         Weapons.Add(weapon);
+        
     }
     public void RemoveWeapon(GameObject weapon)
     {
         Weapons.Remove(weapon);
     }
-    public void ActivateWeapon(GameObject weapon)
+    public void ActivateWeapons()
     {
-        throw new System.NotImplementedException();
+        if (IsWeaponsFirstTimeInitialized)
+        {
+            IsWeaponsFirstTimeInitialized = true;
+            InitializeWeapons(WeaponDamage, WeaponCooldown, WeaponRange, WeaponFireAmount);
+        }
+        else
+        {
+            UpdateWeapons(WeaponDamage, WeaponCooldown, WeaponRange, WeaponFireAmount);
+        }
+        foreach (GameObject _weapon in Weapons)
+        {
+            _weapon.GetComponent<CWeapon>().ActivateWeapon();
+        }
+        
     }
 
-    public void DeactivateWeapon(GameObject weapon)
+    public void DeactivateWeapons()
     {
-        throw new System.NotImplementedException();
+        foreach (GameObject _weapon in Weapons)
+        {
+            _weapon.GetComponent<CWeapon>().DeactivateWeapon();
+        }
     }
 
-    public void InitializeWeapon(float _weapon_damage, float _weapon_cooldown, float _weapon_range, float _weapon_fire_amount)
+    public void InitializeWeapons(float _weapon_damage, float _weapon_cooldown, float _weapon_range, float _weapon_fire_amount)
     {
-        throw new System.NotImplementedException();
+        foreach (GameObject weapon in Weapons)
+        {
+            weapon.GetComponent<CWeapon>().InitializeWeapon(_weapon_damage, _weapon_cooldown, _weapon_range, _weapon_fire_amount);
+        }
     }
-    public void UpdateWeapon(float _weapon_damage, float _weapon_cooldown, float _weapon_range, float _weapon_fire_amount)
+    public void UpdateWeapons(float _weapon_damage, float _weapon_cooldown, float _weapon_range, float _weapon_fire_amount)
     {
-        throw new System.NotImplementedException();
+        foreach (GameObject weapon in Weapons)
+        {
+            weapon.GetComponent<CWeapon>().UpdateWeapon(_weapon_damage, _weapon_cooldown, _weapon_range, _weapon_fire_amount);
+        }
     }
     #endregion
 
