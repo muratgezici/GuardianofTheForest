@@ -6,5 +6,5 @@ using UnityEngine.AI;
 public interface IMoveProjectile
 {
     NavMeshAgent Agent { get; set; }
-    void MoveProjectile(Transform goal, float speed);
+    void MoveProjectile(Vector3 goal, float speed, string target_tag);
 }

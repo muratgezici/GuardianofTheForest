@@ -10,7 +10,8 @@ public class CProjectile : MonoBehaviour, IMoveProjectile
 {
     public NavMeshAgent Agent { get; set; }
     private bool IsMoveEnabled = false;
-    private Transform TargetPos;
+    private Vector3 TargetPos;
+    private string TargetTag = "";
     private Vector3 Direction;
     private float DeathTimer = 0f;
     private void Start()
@@ -19,11 +20,11 @@ public class CProjectile : MonoBehaviour, IMoveProjectile
         
 
     }
-    public void MoveProjectile(Transform goal, float speed)
+    public void MoveProjectile(Vector3 goal, float speed, string target_tag)
     {
         TargetPos = goal;
-        Direction = (TargetPos.position - this.transform.position).normalized;
-        Debug.Log(Direction);
+        TargetTag = target_tag;
+        Direction = (TargetPos - this.transform.position).normalized;
         Direction *= speed / 100;
         gameObject.SetActive(true);
         StartCoroutine(MoveTowardsPlayer(speed));
@@ -46,7 +47,7 @@ public class CProjectile : MonoBehaviour, IMoveProjectile
     }
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.transform == TargetPos)
+        if (collision.gameObject.tag == TargetTag)
         {
             Destroy(gameObject);
         }

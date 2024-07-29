@@ -5,13 +5,14 @@ using UnityEngine;
 public class CWeapon : MonoBehaviour
 {
     [SerializeField] private GameObject ProjectilePrefab;
-    [SerializeField] private GameObject Enemy;
     [SerializeField] private bool IsWeaponActive = false;
     [SerializeField] private float WeaponDamage;
     [SerializeField] private float WeaponCooldown;
     [SerializeField] private float WeaponRange;
     [SerializeField] private float WeaponFireAmount;
-
+    [SerializeField] private GameObject ManualAimDummyTarget;
+    private List<GameObject> Enemies = new List<GameObject>();
+    private bool IsAutoAimEnabled = false;
     private float _timer = 0f;
     
     private bool isActivated = false;
@@ -23,19 +24,25 @@ public class CWeapon : MonoBehaviour
     {
         return IsWeaponActive;
     }
-    public void InitializeWeapon(float _weapon_damage, float _weapon_cooldown, float _weapon_range, float _weapon_fire_amount)
+    public void InitializeWeapon(float _weapon_damage, float _weapon_cooldown, float _weapon_range, float _weapon_fire_amount, bool _is_auto_aim_enabled)
     {
         WeaponDamage += _weapon_damage;
         WeaponCooldown += _weapon_cooldown;
         WeaponRange += _weapon_range;
         WeaponFireAmount += _weapon_fire_amount;
+        IsAutoAimEnabled = _is_auto_aim_enabled;
     }
-    public void UpdateWeapon(float _weapon_damage, float _weapon_cooldown, float _weapon_range, float _weapon_fire_amount)
+    public void UpdateWeapon(float _weapon_damage, float _weapon_cooldown, float _weapon_range, float _weapon_fire_amount, bool _is_auto_aim_enabled)
     {
         WeaponDamage += _weapon_damage;
         WeaponCooldown += _weapon_cooldown;
         WeaponRange += _weapon_range;
         WeaponFireAmount += _weapon_fire_amount;
+        IsAutoAimEnabled = _is_auto_aim_enabled;
+    }
+    public void UpdateEnemyList(List<GameObject> enemies)
+    {
+        Enemies = enemies;
     }
     public void ActivateWeapon()
     {
@@ -58,10 +65,49 @@ public class CWeapon : MonoBehaviour
             _timer += Time.deltaTime;
             if (_timer >= WeaponCooldown)
             {
-                GameObject bullet = GameObject.Instantiate(ProjectilePrefab, transform.position, Quaternion.identity);
-                bullet.GetComponent<CProjectile>().MoveProjectile(Enemy.transform, 15f);
-                _timer = 0f;
+                if(IsAutoAimEnabled)
+                {
+                    GameObject closest_enemy = GetClosestEnemy();
+                    //Debug.Log(Enemies.Count);
+                    if (closest_enemy != null)
+                    {
+                        GameObject bullet = GameObject.Instantiate(ProjectilePrefab, transform.position, Quaternion.identity);
+                        bullet.GetComponent<CProjectile>().MoveProjectile(closest_enemy.transform.position, 15f, "Enemy");
+                        _timer = 0f;
+                    }
+                    
+                }
+                else
+                {
+
+                    GameObject closest_enemy = GetClosestEnemy();
+                    if (closest_enemy != null)
+                    {
+                        GameObject bullet = GameObject.Instantiate(ProjectilePrefab, transform.position, Quaternion.identity);
+                        Debug.Log("MousePos:" + ManualAimDummyTarget.transform.position);
+                        bullet.GetComponent<CProjectile>().MoveProjectile(ManualAimDummyTarget.transform.position, 15f, "Enemy");
+                        _timer = 0f;
+                    }
+                    
+                }
+                
             }
         }
+    }
+
+    public GameObject GetClosestEnemy()
+    {
+        float closest = 1000; //add your max range here
+        GameObject closestObject = null;
+        for (int i = 0; i < Enemies.Count; i++)  //list of gameObjects to search through
+        {
+            float dist = Vector3.Distance(Enemies[i].transform.position, transform.position);
+            if (dist < closest)
+            {
+                closest = dist;
+                closestObject = Enemies[i];
+            }
+        }
+        return closestObject;
     }
 }

@@ -27,8 +27,7 @@ public class CAutoAimAttackState : CAttackState
     public override void FrameUpdate()
     {
         base.FrameUpdate();
-
-        /*if (!AttackBase.IsInMeleeRange)
+        if (!AttackBase.IsInMeleeRange && AttackBase.name == "MeleeAttackManager")
         {
             AttackBase.DeactivateWeapons();
         }
@@ -36,14 +35,14 @@ public class CAutoAimAttackState : CAttackState
         {
             AttackBase.ActivateWeapons();
         }
-        if (!AttackBase.IsInProjectileRange)
+        if (!AttackBase.IsInProjectileRange && AttackBase.name == "ProjectileAttackManager")
         {
             AttackBase.DeactivateWeapons();
         }
         else
         {
             AttackBase.ActivateWeapons();
-        }*/
+        }
 
         if (!AttackBase.IsAutoAimEnabled)
         {

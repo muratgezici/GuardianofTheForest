@@ -40,7 +40,7 @@ public class CEnemyAttackState : CEnemyState
             _timer = 0f;
             Vector2 dir = (Player.transform.position - enemy.transform.position).normalized;
             GameObject bullet = GameObject.Instantiate(enemy.BulletPrefab, enemy.transform.position, Quaternion.identity);
-            bullet.GetComponent<CProjectile>().MoveProjectile(Player.transform, 15f);
+            bullet.GetComponent<CProjectile>().MoveProjectile(Player.transform.position, 15f, "Player");
 
         }
         else if (_timer > _timeBetweenShots / 2f)

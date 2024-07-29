@@ -28,7 +28,23 @@ public class CManualAimAttackState : CAttackState
     {
         base.FrameUpdate();
 
-        
+        if (!AttackBase.IsInMeleeRange && AttackBase.name == "MeleeAttackManager")
+        {
+            AttackBase.DeactivateWeapons();
+        }
+        else
+        {
+            AttackBase.ActivateWeapons();
+        }
+        if (!AttackBase.IsInProjectileRange && AttackBase.name == "ProjectileAttackManager")
+        {
+            AttackBase.DeactivateWeapons();
+        }
+        else
+        {
+            AttackBase.ActivateWeapons();
+        }
+
         if (AttackBase.IsAutoAimEnabled)
         {
             AttackBase.StateMachine.ChangeState(AttackBase.AutoAimState);
