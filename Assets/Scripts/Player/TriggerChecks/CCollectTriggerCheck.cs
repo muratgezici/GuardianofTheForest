@@ -14,14 +14,14 @@ public class CCollectTriggerCheck : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "Collectible")
+        if (collision.gameObject.tag == "Collectable")
         {
             _player.SetInCollectRangeStatus(true);
         }
     }
     private void OnTriggerExit(Collider collision)
     {
-        if (collision.gameObject.tag == "Collectible")
+        if (collision.gameObject.tag == "Collectable")
         {
             _player.SetInCollectRangeStatus(false);
         }
