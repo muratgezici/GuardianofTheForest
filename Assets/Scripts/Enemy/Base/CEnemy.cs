@@ -31,6 +31,13 @@ public class CEnemy : MonoBehaviour, IDamageable, IEnemyMoveable, ITriggerChecka
     public float RandomMovementSpeed = 1f;
 
     #endregion
+    protected bool IsGameStopped = false;
+    private void SetIsGameStopped(bool val)
+    {  
+        IsGameStopped = val;
+        Debug.Log("enemy: " + IsGameStopped);
+    }
+
     private void Awake()
     {
         StateMachine = new CEnemyStateMachine();
@@ -38,6 +45,7 @@ public class CEnemy : MonoBehaviour, IDamageable, IEnemyMoveable, ITriggerChecka
         IdleState = new CEnemyIdleState(this, StateMachine);
         ChaseState = new CEnemyChaseState(this, StateMachine);
         AttackState = new CEnemyAttackState (this, StateMachine);
+        CGameManager.IsGamePausedEvent += SetIsGameStopped;
 
     }
     private void Start()
@@ -50,12 +58,21 @@ public class CEnemy : MonoBehaviour, IDamageable, IEnemyMoveable, ITriggerChecka
     
     private void Update()
     {
+        if (IsGameStopped)
+        {
+            Agent.speed = 0;
+            return;
+        }
         StateMachine.CurrentEnemyState.FrameUpdate();
         
     }
     private void FixedUpdate()
     {
-        
+        if (IsGameStopped)
+        {
+            Agent.speed = 0;
+            return;
+        }
         StateMachine.CurrentEnemyState.PhysicsUpdate();
     }
 
@@ -77,6 +94,7 @@ public class CEnemy : MonoBehaviour, IDamageable, IEnemyMoveable, ITriggerChecka
     #region Movement Functions
     public void MoveEnemy(Transform goal, float speed)
     {
+        
         Agent.destination = goal.position;
         Agent.speed = speed;
         CheckForFacing(goal);

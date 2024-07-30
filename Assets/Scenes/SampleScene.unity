@@ -7945,6 +7945,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -944628639613478452, guid: cee20b4638c84ed4fbaa7ca5855918b3,
         type: 3}
+    - target: {fileID: 6717861943615102702, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
+        type: 3}
+      propertyPath: m_Maskable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717861943615102702, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
+        type: 3}
+      propertyPath: m_PreserveAspect
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344379373105082619, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8724262764662124224, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5540121259393150017, guid: 0c2897c7dfea76b42b495de3edcc2d8a, type: 3}
     m_RemovedGameObjects: []

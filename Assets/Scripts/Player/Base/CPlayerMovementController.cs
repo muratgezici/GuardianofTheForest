@@ -31,8 +31,10 @@ public class CPlayerMovementController : MonoBehaviour
     private Vector3 LastDirection;
     private Vector3 MovementVector;
 
+    private bool IsGameStopped = false;
     private void Awake()
     {
+        CGameManager.IsGamePausedEvent += SetIsGameStopped;
         PlayerBase = GetComponent<CPlayer>();
         Agent = GetComponent<NavMeshAgent>();
         PlayerActionMap = InputActions.FindActionMap("Player");
@@ -54,6 +56,12 @@ public class CPlayerMovementController : MonoBehaviour
     }
     private void Update()
     {
+
+        if (IsGameStopped)
+        {
+            return;
+        }
+
         MovementVector.Normalize();
         if(MovementVector != LastDirection)
         {
@@ -87,6 +95,9 @@ public class CPlayerMovementController : MonoBehaviour
     {
         Camera.transform.position = transform.position-new Vector3(0,0,3f) + Vector3.up * (12f-5f);
     }
-
+    private void SetIsGameStopped(bool val)
+    {
+        IsGameStopped = val;
+    }
 }
     

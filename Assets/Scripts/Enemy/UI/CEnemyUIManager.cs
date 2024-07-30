@@ -28,8 +28,8 @@ public class CEnemyUIManager : MonoBehaviour
     {
         CurrentHealth = _Enemy.CurrentHealth;
         float fill_amount = CurrentHealth / MaxHealth;
-        Debug.Log(fill_amount);
+       
         CurrentHealthBarImage.GetComponent<Image>().fillAmount = fill_amount;
-        Debug.Log(CurrentHealthBarImage.GetComponent<Image>().fillAmount);
+        
     }
 }

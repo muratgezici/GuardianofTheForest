@@ -7,16 +7,22 @@ public class CCollectableManager : MonoBehaviour
     private List<GameObject> CollectablePrefab = new List<GameObject>();
     private float spawn_timer = 0f;
     private float spawn_timer_interval = 2.5f;
-
+    private bool IsGameStopped = false;
     private void Start()
     {
         for (int i = 0; i < transform.childCount; i++)
         {
             CollectablePrefab.Add(transform.GetChild(i).gameObject);
         }
+        CGameManager.IsGamePausedEvent += SetIsGameStopped;
     }
     private void Update()
     {
+        if (IsGameStopped)
+        {
+            return;
+        }
+
         spawn_timer += Time.deltaTime;
         if (spawn_timer > spawn_timer_interval)
         {
@@ -33,5 +39,9 @@ public class CCollectableManager : MonoBehaviour
 
             spawn_timer = 0f;
         }
+    }
+    private void SetIsGameStopped(bool val)
+    {
+        IsGameStopped = val;
     }
 }

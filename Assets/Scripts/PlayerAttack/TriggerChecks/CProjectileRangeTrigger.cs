@@ -12,6 +12,7 @@ public class CProjectileRangeTrigger : MonoBehaviour
     private void Awake()
     {
         _attackManager = GetComponentInParent<CAttackBase>();
+        
     }
 
     private void OnTriggerEnter(Collider collision)

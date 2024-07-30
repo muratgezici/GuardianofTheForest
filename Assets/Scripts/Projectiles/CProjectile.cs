@@ -15,10 +15,11 @@ public class CProjectile : MonoBehaviour, IMoveProjectile
     private Vector3 Direction;
     private float DeathTimer = 0f;
     private float Damage = 0f;
+    private bool IsGameStopped = false;
     private void Start()
     {
-        
-        
+        CGameManager.IsGamePausedEvent += SetIsGameStopped;
+
 
     }
     public void SetDamage(float damage)
@@ -41,6 +42,10 @@ public class CProjectile : MonoBehaviour, IMoveProjectile
         while (true)
         {
             yield return new WaitForSeconds(0.01f);
+            if (IsGameStopped)
+            {
+                continue;
+            }
             DeathTimer++;
             gameObject.transform.position = new Vector3(transform.position.x + Direction.x, transform.position.y, transform.position.z + Direction.z);
             if(DeathTimer > 300f)
@@ -66,5 +71,10 @@ public class CProjectile : MonoBehaviour, IMoveProjectile
             
             Destroy(gameObject);
         }
+    }
+
+    private void SetIsGameStopped(bool val)
+    {
+        IsGameStopped = val;
     }
 }

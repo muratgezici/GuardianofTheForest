@@ -16,7 +16,8 @@ public class CWeapon : MonoBehaviour
     private CAttackBase AttackBase;
     private bool IsAutoAimEnabled = false;
     private float _timer = 0f;
-    
+    private bool IsGameStopped = false;
+
     private bool isActivated = false;
     public void SetIsWeaponActive(bool _is_active)
     {
@@ -25,6 +26,10 @@ public class CWeapon : MonoBehaviour
     public bool GetIsWeaponActive()
     {
         return IsWeaponActive;
+    }
+    private void Start()
+    {
+        CGameManager.IsGamePausedEvent += SetIsGameStopped;
     }
     public void InitializeWeapon(float _weapon_damage, float _weapon_cooldown, float _weapon_range, float _weapon_fire_amount, bool _is_auto_aim_enabled, CAttackBase attack_base)
     {
@@ -60,7 +65,11 @@ public class CWeapon : MonoBehaviour
     }
     private void Update()
     {
-        if(!isActivated)
+        if (IsGameStopped)
+        {
+            return;
+        }
+        if (!isActivated)
         {
             return;
         }
@@ -127,5 +136,10 @@ public class CWeapon : MonoBehaviour
 
         }
         return closest_obj;
+    }
+
+    private void SetIsGameStopped(bool val)
+    {
+        IsGameStopped = val;
     }
 }
