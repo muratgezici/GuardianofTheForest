@@ -26,6 +26,14 @@ public class CPlayerCollectState : CPlayerState
     public override void FrameUpdate()
     {
         base.FrameUpdate();
+        GameObject obj = player.FindClosestObjectWithTag("Collectable");
+        if(obj != null)
+        {
+            obj.GetComponent<CCollectableUnit>().ActionCollectCollectable();
+
+
+        }
+        player.StateMachine.ChangeState(player.IdleState);
     }
 
     public override void PhysicsUpdate()

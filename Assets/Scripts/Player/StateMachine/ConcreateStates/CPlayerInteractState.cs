@@ -11,6 +11,14 @@ public class CPlayerInteractState : CPlayerState
     public override void AnimationTriggerEvent(CPlayer.AnimationTriggerType triggerType)
     {
         base.AnimationTriggerEvent(triggerType);
+        GameObject obj = player.FindClosestObjectWithTag("Interactable");
+        if (obj != null)
+        {
+            //obj.GetComponent<CCollectableUnit>().ActionCollectCollectable();
+
+
+        }
+        player.StateMachine.ChangeState(player.IdleState);
     }
 
     public override void EnterState()

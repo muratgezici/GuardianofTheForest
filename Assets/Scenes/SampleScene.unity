@@ -7874,6 +7874,11 @@ PrefabInstance:
       propertyPath: Camera
       value: 
       objectReference: {fileID: 1981900879}
+    - target: {fileID: 1753438873212746332, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
+        type: 3}
+      propertyPath: WeaponType
+      value: Projectile
+      objectReference: {fileID: 0}
     - target: {fileID: 2218582216638616343, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
         type: 3}
       propertyPath: m_LocalPosition.y

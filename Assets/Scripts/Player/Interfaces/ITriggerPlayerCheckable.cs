@@ -11,4 +11,6 @@ public interface ITriggerPlayerCheckable
     void SetInCollectRangeStatus(bool isInCollectRange);
     void SetInTreeCutRangeStatus(bool isInTreeCutRange);
     void SetInInteractRangeStatus(bool isInInteractRange);
+
+    GameObject FindClosestObjectWithTag(string tag);
 }

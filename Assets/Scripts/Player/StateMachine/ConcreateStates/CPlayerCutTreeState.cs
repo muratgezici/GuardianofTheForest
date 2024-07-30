@@ -26,10 +26,19 @@ public class CPlayerCutTreeState : CPlayerState
     public override void FrameUpdate()
     {
         base.FrameUpdate();
+        GameObject obj = player.FindClosestObjectWithTag("Tree");
+        if (obj != null)
+        {
+            obj.GetComponent<CTreeUnit>().ActionCutTree();
+
+
+        }
+        player.StateMachine.ChangeState(player.IdleState);
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
     }
+
 }

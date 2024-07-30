@@ -8,7 +8,7 @@ public class CPlayer : MonoBehaviour, IPlayerDamageable, ITriggerPlayerCheckable
     [SerializeField] private GameObject ProjectileAttackManager;
     [SerializeField] private GameObject MeleeAttackManager;
 
-    public float MaxHealth { get; set; }
+    public float MaxHealth { get; set; } = 100f;
     public float CurrentHealth { get; set; }
     public bool IsMoving { get; set; }
     public NavMeshAgent Agent { get; set; }
@@ -91,6 +91,9 @@ public class CPlayer : MonoBehaviour, IPlayerDamageable, ITriggerPlayerCheckable
     {
         PlayerIdle,
         PlayerWalk,
+        PlayerCollect,
+        PlayerInteract,
+        PlayerCutTree,
     }
     #endregion
 
@@ -108,6 +111,27 @@ public class CPlayer : MonoBehaviour, IPlayerDamageable, ITriggerPlayerCheckable
     public void SetInInteractRangeStatus(bool isInInteractRange)
     {
         IsInInteractRange = isInInteractRange;
+    }
+
+    public GameObject FindClosestObjectWithTag(string tag)
+    {
+        GameObject[] objs = GameObject.FindGameObjectsWithTag(tag);
+        GameObject closest_obj = null;
+        float minDist = Mathf.Infinity;
+        foreach (GameObject obj in objs)
+        {
+            float distance = Vector3.Distance(obj.transform.position, transform.position);
+            if(obj.activeSelf == true)
+            {
+                if (distance < minDist)
+                {
+                    closest_obj = obj;
+                    minDist = distance;
+                }
+            }
+            
+        }
+        return closest_obj;
     }
     #endregion
 }

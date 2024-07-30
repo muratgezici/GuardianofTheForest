@@ -11,6 +11,7 @@ public class CTreeUnit : MonoBehaviour
     {
         if (!IsTreeEnabled)
         {
+            gameObject.SetActive(true);
             transform.GetChild(TreeIndex).gameObject.SetActive(false);
             TreeIndex = Random.Range(0, transform.childCount);
             transform.GetChild(TreeIndex).gameObject.SetActive(true);
@@ -31,6 +32,7 @@ public class CTreeUnit : MonoBehaviour
     {
         IsTreeEnabled = false;
         transform.GetChild(TreeIndex).gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
     public bool GetIsTreeEnabled()
     {

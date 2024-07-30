@@ -33,6 +33,21 @@ public class CPlayerIdleState : CPlayerState
             AnimationTriggerEvent(CPlayer.AnimationTriggerType.PlayerWalk);
             player.StateMachine.ChangeState(player.WalkState);
         }
+        if(player.IsInCollectRange && Input.GetKeyDown(KeyCode.Q))
+        {
+            AnimationTriggerEvent(CPlayer.AnimationTriggerType.PlayerCollect);
+            player.StateMachine.ChangeState(player.CollectState);
+        }
+        else if(player.IsInInteractRange && Input.GetKeyDown(KeyCode.F))
+        {
+            AnimationTriggerEvent(CPlayer.AnimationTriggerType.PlayerInteract);
+            player.StateMachine.ChangeState(player.InteractState);
+        }
+        else if (player.IsInTreeCutRange && Input.GetKeyDown(KeyCode.E))
+        {
+            AnimationTriggerEvent(CPlayer.AnimationTriggerType.PlayerCutTree);
+            player.StateMachine.ChangeState(player.CutTreeState);
+        }
     }
 
     public override void PhysicsUpdate()

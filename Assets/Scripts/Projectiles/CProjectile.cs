@@ -14,11 +14,16 @@ public class CProjectile : MonoBehaviour, IMoveProjectile
     private string TargetTag = "";
     private Vector3 Direction;
     private float DeathTimer = 0f;
+    private float Damage = 0f;
     private void Start()
     {
         
         
 
+    }
+    public void SetDamage(float damage)
+    {
+        Damage = damage;
     }
     public void MoveProjectile(Vector3 goal, float speed, string target_tag)
     {
@@ -40,6 +45,7 @@ public class CProjectile : MonoBehaviour, IMoveProjectile
             gameObject.transform.position = new Vector3(transform.position.x + Direction.x, transform.position.y, transform.position.z + Direction.z);
             if(DeathTimer > 300f)
             {
+                
                 Destroy(gameObject);
             }
         }
@@ -49,6 +55,15 @@ public class CProjectile : MonoBehaviour, IMoveProjectile
     {
         if (collision.gameObject.tag == TargetTag)
         {
+            if(TargetTag == "Player")
+            {
+                collision.gameObject.GetComponent<CPlayer>().Damage(Damage);
+            }
+            else if(TargetTag == "Enemy")
+            {
+                collision.gameObject.GetComponent<CEnemy>().Damage(Damage);
+            }
+            
             Destroy(gameObject);
         }
     }

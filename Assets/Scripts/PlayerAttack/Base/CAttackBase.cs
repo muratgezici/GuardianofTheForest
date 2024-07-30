@@ -64,10 +64,10 @@ public class CAttackBase : MonoBehaviour, IAttackInitializeable, ITriggerAttackC
     }
     public void ActivateWeapons()
     {
-        if (IsWeaponsFirstTimeInitialized)
+        if (!IsWeaponsFirstTimeInitialized)
         {
             IsWeaponsFirstTimeInitialized = true;
-            InitializeWeapons(WeaponDamage, WeaponCooldown, WeaponRange, WeaponFireAmount, IsAutoAimEnabled);
+            InitializeWeapons(WeaponDamage, WeaponCooldown, WeaponRange, WeaponFireAmount, IsAutoAimEnabled, gameObject.GetComponent<CAttackBase>());
         }
         else
         {
@@ -88,11 +88,11 @@ public class CAttackBase : MonoBehaviour, IAttackInitializeable, ITriggerAttackC
         }
     }
 
-    public void InitializeWeapons(float _weapon_damage, float _weapon_cooldown, float _weapon_range, float _weapon_fire_amount, bool _auto_aim_enabled)
+    public void InitializeWeapons(float _weapon_damage, float _weapon_cooldown, float _weapon_range, float _weapon_fire_amount, bool _auto_aim_enabled, CAttackBase attack_base)
     {
         foreach (GameObject weapon in Weapons)
         {
-            weapon.GetComponent<CWeapon>().InitializeWeapon(_weapon_damage, _weapon_cooldown, _weapon_range, _weapon_fire_amount, _auto_aim_enabled);
+            weapon.GetComponent<CWeapon>().InitializeWeapon(_weapon_damage, _weapon_cooldown, _weapon_range, _weapon_fire_amount, _auto_aim_enabled, attack_base);
         }
     }
     public void UpdateWeapons(float _weapon_damage, float _weapon_cooldown, float _weapon_range, float _weapon_fire_amount, bool _auto_aim_enabled)
@@ -104,6 +104,7 @@ public class CAttackBase : MonoBehaviour, IAttackInitializeable, ITriggerAttackC
     }
     public void UpdateEnemyListOnWeapons(List<GameObject> enemies)
     {
+       
         foreach (GameObject weapon in Weapons)
         {
             weapon.GetComponent<CWeapon>().UpdateEnemyList(enemies);

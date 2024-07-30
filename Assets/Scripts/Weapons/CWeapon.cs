@@ -11,7 +11,9 @@ public class CWeapon : MonoBehaviour
     [SerializeField] private float WeaponRange;
     [SerializeField] private float WeaponFireAmount;
     [SerializeField] private GameObject ManualAimDummyTarget;
+    [SerializeField] private string WeaponType;
     private List<GameObject> Enemies = new List<GameObject>();
+    private CAttackBase AttackBase;
     private bool IsAutoAimEnabled = false;
     private float _timer = 0f;
     
@@ -24,13 +26,14 @@ public class CWeapon : MonoBehaviour
     {
         return IsWeaponActive;
     }
-    public void InitializeWeapon(float _weapon_damage, float _weapon_cooldown, float _weapon_range, float _weapon_fire_amount, bool _is_auto_aim_enabled)
+    public void InitializeWeapon(float _weapon_damage, float _weapon_cooldown, float _weapon_range, float _weapon_fire_amount, bool _is_auto_aim_enabled, CAttackBase attack_base)
     {
         WeaponDamage += _weapon_damage;
         WeaponCooldown += _weapon_cooldown;
         WeaponRange += _weapon_range;
         WeaponFireAmount += _weapon_fire_amount;
         IsAutoAimEnabled = _is_auto_aim_enabled;
+        AttackBase = attack_base;
     }
     public void UpdateWeapon(float _weapon_damage, float _weapon_cooldown, float _weapon_range, float _weapon_fire_amount, bool _is_auto_aim_enabled)
     {
@@ -42,6 +45,7 @@ public class CWeapon : MonoBehaviour
     }
     public void UpdateEnemyList(List<GameObject> enemies)
     {
+        Enemies.Clear();
         Enemies = enemies;
     }
     public void ActivateWeapon()
@@ -67,27 +71,36 @@ public class CWeapon : MonoBehaviour
             {
                 if(IsAutoAimEnabled)
                 {
-                    GameObject closest_enemy = GetClosestEnemy();
-                    //Debug.Log(Enemies.Count);
-                    if (closest_enemy != null)
+                    if ((AttackBase.IsInProjectileRange && WeaponType == "Projectile" ) || (AttackBase.IsInProjectileRange && WeaponType == "Melee"))
                     {
-                        GameObject bullet = GameObject.Instantiate(ProjectilePrefab, transform.position, Quaternion.identity);
-                        bullet.GetComponent<CProjectile>().MoveProjectile(closest_enemy.transform.position, 15f, "Enemy");
-                        _timer = 0f;
+                        GameObject closest_enemy = GetClosestEnemy();
+                        //Debug.Log(Enemies.Count);
+                        if (closest_enemy != null)
+                        {
+                            GameObject bullet = GameObject.Instantiate(ProjectilePrefab, transform.position, Quaternion.identity);
+                            bullet.GetComponent<CProjectile>().SetDamage(WeaponDamage);
+                            bullet.GetComponent<CProjectile>().MoveProjectile(closest_enemy.transform.position, 15f, "Enemy");
+                            _timer = 0f;
+                        }
                     }
+                    
                     
                 }
                 else
                 {
-
-                    GameObject closest_enemy = GetClosestEnemy();
-                    if (closest_enemy != null)
+                    if ((AttackBase.IsInProjectileRange && WeaponType == "Projectile") || (AttackBase.IsInProjectileRange && WeaponType == "Melee"))
                     {
-                        GameObject bullet = GameObject.Instantiate(ProjectilePrefab, transform.position, Quaternion.identity);
-                        Debug.Log("MousePos:" + ManualAimDummyTarget.transform.position);
-                        bullet.GetComponent<CProjectile>().MoveProjectile(ManualAimDummyTarget.transform.position, 15f, "Enemy");
-                        _timer = 0f;
+                        GameObject closest_enemy = GetClosestEnemy();
+                        if (closest_enemy != null)
+                        {
+                            GameObject bullet = GameObject.Instantiate(ProjectilePrefab, transform.position, Quaternion.identity);
+                            Debug.Log("MousePos:" + ManualAimDummyTarget.transform.position);
+                            bullet.GetComponent<CProjectile>().SetDamage(WeaponDamage);
+                            bullet.GetComponent<CProjectile>().MoveProjectile(ManualAimDummyTarget.transform.position, 15f, "Enemy");
+                            _timer = 0f;
+                        }
                     }
+                      
                     
                 }
                 
@@ -97,17 +110,22 @@ public class CWeapon : MonoBehaviour
 
     public GameObject GetClosestEnemy()
     {
-        float closest = 1000; //add your max range here
-        GameObject closestObject = null;
-        for (int i = 0; i < Enemies.Count; i++)  //list of gameObjects to search through
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject closest_obj = null;
+        float minDist = Mathf.Infinity;
+        foreach (GameObject obj in objs)
         {
-            float dist = Vector3.Distance(Enemies[i].transform.position, transform.position);
-            if (dist < closest)
+            float distance = Vector3.Distance(obj.transform.position, transform.position);
+            if (obj.activeSelf == true)
             {
-                closest = dist;
-                closestObject = Enemies[i];
+                if (distance < minDist)
+                {
+                    closest_obj = obj;
+                    minDist = distance;
+                }
             }
+
         }
-        return closestObject;
+        return closest_obj;
     }
 }

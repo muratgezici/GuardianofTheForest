@@ -11,6 +11,7 @@ public class CCollectableUnit : MonoBehaviour
     {
         if (!IsCollectableEnabled)
         {
+            gameObject.SetActive(true);
             transform.GetChild(CollectableIndex).gameObject.SetActive(false);
             CollectableIndex = Random.Range(0, transform.childCount);
             transform.GetChild(CollectableIndex).gameObject.SetActive(true);
@@ -31,6 +32,7 @@ public class CCollectableUnit : MonoBehaviour
     {
         IsCollectableEnabled = false;
         transform.GetChild(CollectableIndex).gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
     public bool GetIsCollectableEnabled()
     {

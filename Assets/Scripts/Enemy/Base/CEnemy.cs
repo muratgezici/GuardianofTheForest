@@ -7,7 +7,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class CEnemy : MonoBehaviour, IDamageable, IEnemyMoveable, ITriggerCheckable
 {
-    [field: SerializeField] public float MaxHealth { get; set; } = 100f;
+    [field: SerializeField] public float MaxHealth { get; set; } = 10f;
     public float CurrentHealth { get; set; }
     public NavMeshAgent Agent { get; set; }
     public bool IsFacingTowardsPlayer { get; set; } = true;
