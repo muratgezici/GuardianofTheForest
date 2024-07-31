@@ -29,6 +29,19 @@ public class CPlayerCollectState : CPlayerState
         GameObject obj = player.FindClosestObjectWithTag("Collectable");
         if(obj != null)
         {
+            
+            if(obj.transform.GetChild(1).gameObject.activeSelf == true)
+            {
+                player.Heal(15f);
+            }
+            else if(obj.transform.GetChild(0).gameObject.activeSelf == true)
+            {
+                player.AddMushroom(1);
+            }
+            else if (obj.transform.GetChild(2).gameObject.activeSelf == true)
+            {
+                player.AddFlower(1);
+            }
             obj.GetComponent<CCollectableUnit>().ActionCollectCollectable();
 
 

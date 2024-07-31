@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CWeapon : MonoBehaviour
@@ -12,12 +13,13 @@ public class CWeapon : MonoBehaviour
     [SerializeField] private float WeaponFireAmount;
     [SerializeField] private GameObject ManualAimDummyTarget;
     [SerializeField] private string WeaponType;
+    [SerializeField] private float TimeUntilActivated = 0;
     private List<GameObject> Enemies = new List<GameObject>();
     private CAttackBase AttackBase;
     private bool IsAutoAimEnabled = false;
     private float _timer = 0f;
     private bool IsGameStopped = false;
-
+    private float _activate_timer = 0f;
     private bool isActivated = false;
     public void SetIsWeaponActive(bool _is_active)
     {
@@ -31,6 +33,7 @@ public class CWeapon : MonoBehaviour
     {
         CGameManager.IsGamePausedEvent += SetIsGameStopped;
     }
+   
     public void InitializeWeapon(float _weapon_damage, float _weapon_cooldown, float _weapon_range, float _weapon_fire_amount, bool _is_auto_aim_enabled, CAttackBase attack_base)
     {
         WeaponDamage += _weapon_damage;
@@ -41,13 +44,14 @@ public class CWeapon : MonoBehaviour
         AttackBase = attack_base;
         
     }
-    public void UpdateWeapon(float _weapon_damage, float _weapon_cooldown, float _weapon_range, float _weapon_fire_amount, bool _is_auto_aim_enabled)
+    public void UpdateWeapon(float _weapon_damage, float _weapon_cooldown, float _weapon_range, float _weapon_fire_amount, bool _is_auto_aim_enabled, CAttackBase attack_base)
     {
         WeaponDamage += _weapon_damage;
         WeaponCooldown += _weapon_cooldown;
         WeaponRange += _weapon_range;
         WeaponFireAmount += _weapon_fire_amount;
         IsAutoAimEnabled = _is_auto_aim_enabled;
+        AttackBase = attack_base;
     }
     public void UpdateEnemyList(List<GameObject> enemies)
     {
@@ -70,6 +74,13 @@ public class CWeapon : MonoBehaviour
         {
             return;
         }
+        _activate_timer += Time.deltaTime;
+        if (_activate_timer > TimeUntilActivated)
+        {
+            SetIsWeaponActive(true);
+        }
+
+
         if (!isActivated)
         {
             return;
@@ -79,6 +90,10 @@ public class CWeapon : MonoBehaviour
             _timer += Time.deltaTime;
             if (_timer >= WeaponCooldown)
             {
+                if(WeaponCooldown > 0.3f)
+                {
+                    WeaponCooldown -= 0.02f;
+                }
                 if(IsAutoAimEnabled)
                 {
                     

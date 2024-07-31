@@ -29,6 +29,10 @@ public class CPlayerCutTreeState : CPlayerState
         GameObject obj = player.FindClosestObjectWithTag("Tree");
         if (obj != null)
         {
+            if (obj.GetComponent<CTreeUnit>().GetTreeHealth() -1 == 0)
+            {
+                player.AddTree(3);
+            }
             obj.GetComponent<CTreeUnit>().ActionCutTree();
 
 

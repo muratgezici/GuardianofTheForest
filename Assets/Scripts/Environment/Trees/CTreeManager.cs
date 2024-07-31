@@ -25,6 +25,10 @@ public class CTreeManager : MonoBehaviour
         spawn_timer += Time.deltaTime;
         if (spawn_timer > spawn_timer_interval)
         {
+            if (spawn_timer_interval > 0.3f)
+            {
+                spawn_timer_interval -= 0.01f;
+            }
             bool is_tree_set = true;
             int time_repeated = 0;
             while (is_tree_set && time_repeated < 10)

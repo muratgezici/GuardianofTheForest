@@ -27,7 +27,9 @@ public class CPlayer : MonoBehaviour, IPlayerDamageable, ITriggerPlayerCheckable
     public CPlayerCollectState CollectState { get; set; }
     public CPlayerInteractState InteractState { get; set; }
 
-
+    public int MushroomCount { get; set; } = 0;
+    public int TreeCount { get; set; } = 0;
+    public int FlowerCount { get; set; } = 0;
     #endregion
     private void Awake()
     {
@@ -65,13 +67,29 @@ public class CPlayer : MonoBehaviour, IPlayerDamageable, ITriggerPlayerCheckable
             Die();
         }
     }
-
+    public void Heal(float HealAmount)
+    {
+        CurrentHealth += HealAmount;
+    }
     public void Die()
     {
         //
     }
     #endregion
-
+    #region Collectable Actions
+    public void AddMushroom(int amount)
+    {
+        MushroomCount += amount;
+    }
+    public void AddFlower(int amount)
+    {
+        FlowerCount += amount;
+    }
+    public void AddTree(int amount)
+    {
+        TreeCount += amount;
+    }
+    #endregion
     #region IfChecks
     public void SetMovingStatus(bool isMoving)
     {

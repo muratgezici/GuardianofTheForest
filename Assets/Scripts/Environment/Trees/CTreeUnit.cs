@@ -20,6 +20,10 @@ public class CTreeUnit : MonoBehaviour
         
 
     }
+    public int GetTreeHealth()
+    {
+        return Health;
+    }
     public void ActionCutTree()
     {
         Health -= 1;

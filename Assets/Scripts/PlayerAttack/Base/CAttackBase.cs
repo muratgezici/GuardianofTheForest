@@ -76,7 +76,7 @@ public class CAttackBase : MonoBehaviour, IAttackInitializeable, ITriggerAttackC
         }
         else
         {
-            UpdateWeapons(WeaponDamage, WeaponCooldown, WeaponRange, WeaponFireAmount, IsAutoAimEnabled);
+            UpdateWeapons(WeaponDamage, WeaponCooldown, WeaponRange, WeaponFireAmount, IsAutoAimEnabled, gameObject.GetComponent<CAttackBase>());
         }
         foreach (GameObject _weapon in Weapons)
         {
@@ -102,11 +102,11 @@ public class CAttackBase : MonoBehaviour, IAttackInitializeable, ITriggerAttackC
             weapon.GetComponent<CWeapon>().InitializeWeapon(_weapon_damage, _weapon_cooldown, _weapon_range, _weapon_fire_amount, _auto_aim_enabled, attack_base);
         }
     }
-    public void UpdateWeapons(float _weapon_damage, float _weapon_cooldown, float _weapon_range, float _weapon_fire_amount, bool _auto_aim_enabled)
+    public void UpdateWeapons(float _weapon_damage, float _weapon_cooldown, float _weapon_range, float _weapon_fire_amount, bool _auto_aim_enabled, CAttackBase attack_base)
     {
         foreach (GameObject weapon in Weapons)
         {
-            weapon.GetComponent<CWeapon>().UpdateWeapon(_weapon_damage, _weapon_cooldown, _weapon_range, _weapon_fire_amount, _auto_aim_enabled);
+            weapon.GetComponent<CWeapon>().UpdateWeapon(_weapon_damage, _weapon_cooldown, _weapon_range, _weapon_fire_amount, _auto_aim_enabled, attack_base);
         }
     }
     public void UpdateEnemyListOnWeapons(List<GameObject> enemies)

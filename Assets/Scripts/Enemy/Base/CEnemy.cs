@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -7,6 +8,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class CEnemy : MonoBehaviour, IDamageable, IEnemyMoveable, ITriggerCheckable
 {
+    public static event Action EnemyDied;
     [field: SerializeField] public float MaxHealth { get; set; } = 10f;
     public float CurrentHealth { get; set; }
     public NavMeshAgent Agent { get; set; }
@@ -28,7 +30,7 @@ public class CEnemy : MonoBehaviour, IDamageable, IEnemyMoveable, ITriggerChecka
     #region Idle Variables
     [SerializeField] float IdleSpeed = 1f;
     [SerializeField] float ChaseSpeed = 6f;
-    [SerializeField] public float BulletDamage { get; set; } = 2f;
+    [field: SerializeField] public float BulletDamage { get; set; } = 2f;
     public float RandomMovementRange = 5f;
     public float RandomMovementSpeed = 1f;
 
@@ -90,6 +92,7 @@ public class CEnemy : MonoBehaviour, IDamageable, IEnemyMoveable, ITriggerChecka
 
     public void Die()
     {
+        EnemyDied?.Invoke();
         Destroy(gameObject);
     }
     #endregion
