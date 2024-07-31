@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ public class CPlayer : MonoBehaviour, IPlayerDamageable, ITriggerPlayerCheckable
 {
     [SerializeField] private GameObject ProjectileAttackManager;
     [SerializeField] private GameObject MeleeAttackManager;
-
+    public static event Action PlayerDied;
     public float MaxHealth { get; set; } = 100f;
     public float CurrentHealth { get; set; }
     public bool IsMoving { get; set; }
@@ -73,7 +74,8 @@ public class CPlayer : MonoBehaviour, IPlayerDamageable, ITriggerPlayerCheckable
     }
     public void Die()
     {
-        //
+
+        PlayerDied?.Invoke();
     }
     #endregion
     #region Collectable Actions

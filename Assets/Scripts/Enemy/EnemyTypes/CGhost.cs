@@ -5,5 +5,5 @@ using UnityEngine;
 
 public class CGhost : CEnemy
 {
-    public static event Action<bool> EnemyDied;
+   
 }
