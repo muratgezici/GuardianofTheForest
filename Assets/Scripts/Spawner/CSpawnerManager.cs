@@ -7,7 +7,7 @@ public class CSpawnerManager : MonoBehaviour
 {
     private List<GameObject> Spawners = new List<GameObject>();
     private float spawn_timer = 0f;
-    private float spawn_timer_interval = 3f;
+    private float spawn_timer_interval = 1f;
     private bool IsGameStopped = false;
     private void Start()
     {

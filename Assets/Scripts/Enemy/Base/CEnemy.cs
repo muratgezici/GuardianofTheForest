@@ -26,7 +26,9 @@ public class CEnemy : MonoBehaviour, IDamageable, IEnemyMoveable, ITriggerChecka
 
     #endregion
     #region Idle Variables
-
+    [SerializeField] float IdleSpeed = 1f;
+    [SerializeField] float ChaseSpeed = 6f;
+    [SerializeField] public float BulletDamage { get; set; } = 2f;
     public float RandomMovementRange = 5f;
     public float RandomMovementSpeed = 1f;
 
@@ -92,11 +94,23 @@ public class CEnemy : MonoBehaviour, IDamageable, IEnemyMoveable, ITriggerChecka
     }
     #endregion
     #region Movement Functions
-    public void MoveEnemy(Transform goal, float speed)
+    public void MoveEnemy(Transform goal, string speed)
     {
-        
+        float _speed = 0f;
+        if(speed == "Idle")
+        {
+            _speed = IdleSpeed;
+        }
+        else if(speed == "Chase")
+        {
+            _speed = ChaseSpeed;
+        }
+        else
+        {
+            _speed = 0f;
+        }
         Agent.destination = goal.position;
-        Agent.speed = speed;
+        Agent.speed = _speed;
         CheckForFacing(goal);
     }
 

@@ -39,6 +39,7 @@ public class CWeapon : MonoBehaviour
         WeaponFireAmount += _weapon_fire_amount;
         IsAutoAimEnabled = _is_auto_aim_enabled;
         AttackBase = attack_base;
+        
     }
     public void UpdateWeapon(float _weapon_damage, float _weapon_cooldown, float _weapon_range, float _weapon_fire_amount, bool _is_auto_aim_enabled)
     {
@@ -80,7 +81,8 @@ public class CWeapon : MonoBehaviour
             {
                 if(IsAutoAimEnabled)
                 {
-                    if ((AttackBase.IsInProjectileRange && WeaponType == "Projectile" ) || (AttackBase.IsInProjectileRange && WeaponType == "Melee"))
+                    
+                    if ((AttackBase.IsInProjectileRange && WeaponType == "Projectile" ) || (AttackBase.IsInMeleeRange && WeaponType == "Melee"))
                     {
                         GameObject closest_enemy = GetClosestEnemy();
                         //Debug.Log(Enemies.Count);
@@ -97,7 +99,7 @@ public class CWeapon : MonoBehaviour
                 }
                 else
                 {
-                    if ((AttackBase.IsInProjectileRange && WeaponType == "Projectile") || (AttackBase.IsInProjectileRange && WeaponType == "Melee"))
+                    if ((AttackBase.IsInProjectileRange && WeaponType == "Projectile") || (AttackBase.IsInMeleeRange && WeaponType == "Melee"))
                     {
                         GameObject closest_enemy = GetClosestEnemy();
                         if (closest_enemy != null)

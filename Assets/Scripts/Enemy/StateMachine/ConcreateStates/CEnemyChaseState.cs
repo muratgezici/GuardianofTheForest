@@ -30,7 +30,7 @@ public class CEnemyChaseState : CEnemyState
     public override void FrameUpdate()
     {
         base.FrameUpdate();
-        enemy.MoveEnemy(Player.transform, _speed);
+        enemy.MoveEnemy(Player.transform, "Chase");
         if (enemy.IsWithinStrikingDistance)
         {
             AnimationTriggerEvent(CEnemy.AnimationTriggerType.EnemyIdle);

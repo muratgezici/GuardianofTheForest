@@ -1,14 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
-using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEditor.PlayerSettings;
+using static UnityEngine.GraphicsBuffer;
 
 public class CProjectile : MonoBehaviour, IMoveProjectile
 {
     public NavMeshAgent Agent { get; set; }
+    [SerializeField] private string ProjectileType = ""; //SingleShot, AreaShot, MeleeAttack, MultipleShot
     private bool IsMoveEnabled = false;
     private Vector3 TargetPos;
     private string TargetTag = "";
@@ -28,9 +26,15 @@ public class CProjectile : MonoBehaviour, IMoveProjectile
     }
     public void MoveProjectile(Vector3 goal, float speed, string target_tag)
     {
+        
         TargetPos = goal;
         TargetTag = target_tag;
+
+
+        
+
         Direction = (TargetPos - this.transform.position).normalized;
+        transform.rotation = Quaternion.LookRotation(-Direction);
         Direction *= speed / 100;
         gameObject.SetActive(true);
         StartCoroutine(MoveTowardsPlayer(speed));
@@ -47,7 +51,19 @@ public class CProjectile : MonoBehaviour, IMoveProjectile
                 continue;
             }
             DeathTimer++;
-            gameObject.transform.position = new Vector3(transform.position.x + Direction.x, transform.position.y, transform.position.z + Direction.z);
+            if (ProjectileType != "MeleeAttack")
+            {
+                gameObject.transform.position = new Vector3(transform.position.x + Direction.x, transform.position.y, transform.position.z + Direction.z);
+            }
+            else
+            {
+               
+                if (DeathTimer > 100f)
+                {
+
+                    Destroy(gameObject);
+                }
+            }
             if(DeathTimer > 300f)
             {
                 
@@ -68,8 +84,11 @@ public class CProjectile : MonoBehaviour, IMoveProjectile
             {
                 collision.gameObject.GetComponent<CEnemy>().Damage(Damage);
             }
+            if(ProjectileType=="SingleShot" || ProjectileType == "MultipleShot")
+            {
+                Destroy(gameObject);
+            }
             
-            Destroy(gameObject);
         }
     }
 

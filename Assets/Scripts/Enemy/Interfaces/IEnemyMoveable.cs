@@ -8,6 +8,6 @@ public interface IEnemyMoveable
     NavMeshAgent Agent { get; set; }
     bool IsFacingTowardsPlayer {  get; set; }
 
-    void MoveEnemy(Transform goal, float speed);
+    void MoveEnemy(Transform goal, string speed);
     void CheckForFacing (Transform goal);
 }

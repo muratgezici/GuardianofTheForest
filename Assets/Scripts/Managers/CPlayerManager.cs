@@ -17,14 +17,40 @@ public class CPlayerManager : MonoBehaviour
         MeleeAttackBase = MeleeAttackManager.GetComponent <CMeleeAttackBase>();
         AssignWeapons();
     }
+    private void Update()
+    {
+        foreach (GameObject weapon in ProjectileWeapons)
+        {
+            if (!ProjectileAttackBase.GetWeapons().Contains(weapon))
+            {
+                if (weapon.GetComponent<CWeapon>().GetIsWeaponActive())
+                {
+                    ProjectileAttackBase.AddWeapon(weapon);
+                }
+            }
+            
+        }
+        foreach (GameObject weapon in MeleeWeapons)
+        {
+            if (!MeleeAttackBase.GetWeapons().Contains(weapon))
+            {
+                if (weapon.GetComponent<CWeapon>().GetIsWeaponActive())
+                {
 
+                    MeleeAttackBase.AddWeapon(weapon);
+                }
+            }
+        }
+    }
     private void AssignWeapons()
     {
         //For each active projectile weapon, assign it to projectile atack mananger
         foreach(GameObject weapon in ProjectileWeapons)
         {
+            
             if(weapon.GetComponent<CWeapon>().GetIsWeaponActive())
             {
+                
                 ProjectileAttackBase.AddWeapon(weapon);
             }
         }
@@ -32,6 +58,7 @@ public class CPlayerManager : MonoBehaviour
         {
             if (weapon.GetComponent<CWeapon>().GetIsWeaponActive())
             {
+               
                 MeleeAttackBase.AddWeapon(weapon);
             }
         }

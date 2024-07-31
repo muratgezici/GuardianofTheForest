@@ -33,13 +33,15 @@ public class CEnemyAttackState : CEnemyState
     public override void FrameUpdate()
     {
         base.FrameUpdate();
-        enemy.MoveEnemy(Player.transform, 0f);
+        enemy.MoveEnemy(Player.transform, "Attack");
         if(_timer > _timeBetweenShots)
         {
             AnimationTriggerEvent(CEnemy.AnimationTriggerType.EnemyAttack);
             _timer = 0f;
             Vector2 dir = (Player.transform.position - enemy.transform.position).normalized;
             GameObject bullet = GameObject.Instantiate(enemy.BulletPrefab, enemy.transform.position, Quaternion.identity);
+            bullet.transform.position = new Vector3(bullet.transform.position.x, bullet.transform.position.y+1f, bullet.transform.position.z);
+            bullet.GetComponent<CProjectile>().SetDamage(enemy.BulletDamage);
             bullet.GetComponent<CProjectile>().MoveProjectile(Player.transform.position, 15f, "Player");
 
         }

@@ -113,6 +113,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField: 10
   BulletPrefab: {fileID: 2013567006983136941}
+  IdleSpeed: 1
+  ChaseSpeed: 6
   RandomMovementRange: 5
   RandomMovementSpeed: 1
 --- !u!136 &1393042987047012082
@@ -875,6 +877,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5313891540044441098, guid: 3a3d4bf7acb5c114480473f4b77eaa56,
+        type: 3}
+      propertyPath: ProjectileType
+      value: SingleShot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

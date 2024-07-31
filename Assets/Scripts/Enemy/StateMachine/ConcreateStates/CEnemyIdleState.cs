@@ -41,7 +41,7 @@ public class CEnemyIdleState : CEnemyState
             enemy.StateMachine.ChangeState(enemy.ChaseState);
 
         }
-        enemy.MoveEnemy(Player.transform, _speed);
+        enemy.MoveEnemy(Player.transform, "Idle");
         
     }
 

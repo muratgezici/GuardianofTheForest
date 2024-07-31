@@ -5164,12 +5164,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1227030472}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1628818715 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4914684049795631753, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
-    type: 3}
-  m_PrefabInstance: {fileID: 4534181109015359485}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1630974272
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7854,16 +7848,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 1642615136168779701, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
+    - target: {fileID: 1482529958201974404, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
         type: 3}
-      propertyPath: ProjectileWeapons.Array.size
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1642615136168779701, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
-        type: 3}
-      propertyPath: ProjectileWeapons.Array.data[0]
-      value: 
-      objectReference: {fileID: 1628818715}
     - target: {fileID: 1753438873212746332, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
         type: 3}
       propertyPath: Enemy
@@ -7945,6 +7934,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -944628639613478452, guid: cee20b4638c84ed4fbaa7ca5855918b3,
         type: 3}
+    - target: {fileID: 4914684049795631753, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6717861943615102702, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
         type: 3}
       propertyPath: m_Maskable
@@ -7958,6 +7952,41 @@ PrefabInstance:
     - target: {fileID: 7344379373105082619, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
         type: 3}
       propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099879975224592758, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099879975224592758, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099879975224592758, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099879975224592758, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099879975224592758, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8250466070592161337, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8422576508245487474, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
+        type: 3}
+      propertyPath: IsWeaponActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8724262764662124224, guid: 0c2897c7dfea76b42b495de3edcc2d8a,
